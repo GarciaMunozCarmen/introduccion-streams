@@ -69,7 +69,12 @@ public class StringStreamsKata {
      * - El resultado debe estar ordenado (A→Z).
      */
     public List<String> paisesQueTerminanEnAOrdenados() {
-        throw new UnsupportedOperationException("TODO");
+    	return paises.stream()
+    			.filter(p-> p.endsWith("a"))
+    			.sorted()
+    			.toList();
+    			
+        
     }
 
     /**
@@ -80,7 +85,11 @@ public class StringStreamsKata {
      * - ordenados alfabéticamente
      */
     public List<String> paisesMinusculasUnicosOrdenados() {
-        throw new UnsupportedOperationException("TODO");
+        return paises.stream()
+        		.map(p-> p.toLowerCase())
+        		.distinct()
+        		.sorted()
+        		.toList();
     }
 
     /**
@@ -98,7 +107,10 @@ public class StringStreamsKata {
      * - Mantén el orden de primera aparición tras normalizar.
      */
     public List<String> usuariosNormalizadosSinRepetir() {
-        throw new UnsupportedOperationException("TODO");
+        return usuarios.stream()
+        		.map(p-> p.trim().toLowerCase())
+        		.distinct()
+        		.toList();
     }
 
     /**
@@ -118,7 +130,13 @@ public class StringStreamsKata {
      * - Aquí NO hace falta split ni flatMap: ya trabajas con palabras sueltas.
      */
     public List<String> hashtagsUnicosOrdenados() {
-        throw new UnsupportedOperationException("TODO");
+        return tokens.stream()
+        		.filter(p-> p.startsWith("#"))
+        		.map(p-> p.trim().toLowerCase())
+        		.distinct()
+        		.sorted()
+        		.toList();
+        		
     }
 
     /**
@@ -131,7 +149,11 @@ public class StringStreamsKata {
      * - Convierte a IntStream con mapToInt(...) y termina con sum().
      */
     public int sumaLetrasPaisesEnA() {
-        throw new UnsupportedOperationException("TODO");
+        return paises.stream()
+        		.map(p-> p.toLowerCase())
+        		.filter(p-> p.endsWith("a"))
+        		.mapToInt(p-> p.length())
+				.sum();
     }
 
     /**
@@ -145,7 +167,12 @@ public class StringStreamsKata {
      * - Si no hay hashtags, devuelve 0.0.
      */
     public double mediaLongitudHashtagsUnicos() {
-        throw new UnsupportedOperationException("TODO");
+    	return tokens.stream()
+        		.filter(p-> p.startsWith("#"))
+        		.map(p-> p.trim().toLowerCase())
+        		.distinct()
+        		.mapToInt(String::length)
+        		.average().orElse(0);
     }
 
     /**
@@ -159,7 +186,12 @@ public class StringStreamsKata {
      * - Si no hay hashtags, devuelve 0.
      */
     public int longitudMaximaHashtag() {
-        throw new UnsupportedOperationException("TODO");
+        return tokens.stream()
+        		.filter(p-> p.startsWith("#"))
+        		.map(p-> p.trim().toLowerCase())
+        		.distinct()
+        		.mapToInt(String::length)
+        		.max().orElse(0);
     }
     
     /**
@@ -179,7 +211,14 @@ public class StringStreamsKata {
      * - Necesitas flatMap para convertirlo en Stream<String>
      */
     public List<String> comentariosUnicosLimpiosOrdenados() {
-        throw new UnsupportedOperationException("TODO");
+        return comentariosPorPost.stream()
+        		.flatMap(List::stream)
+        		.map(c-> c.trim())
+        		.map(c-> c.toLowerCase())
+        		.distinct()
+        		.sorted()
+        		.dropWhile(c-> c.equals(""))
+        		.toList();
     }
 
     /**
@@ -200,6 +239,12 @@ public class StringStreamsKata {
      * - Luego une todos esos arrays en un único stream (flatMap)
      */
     public List<String> hashtagsUnicosDesdeComas() {
-        throw new UnsupportedOperationException("TODO");
+        return hashtagsPorPost.stream()
+//        		.map(h-> h.)
+        		.map(h-> h.toLowerCase().trim())
+        		.distinct()
+        		.sorted()
+        		.dropWhile(h-> h.isBlank())
+        		.toList();
     }
 }
