@@ -1,6 +1,8 @@
 package com.ivancorrales.streams.numbers;
 
+import java.util.Comparator;
 import java.util.List;
+
 
 /**
  * KATA: Streams con DECIMALES (Double) - progresiva
@@ -60,7 +62,11 @@ public class DoubleStreamsKata {
      * (Piensa: seleccionar → quitar repetidos → ordenar → lista)
      */
     public List<Double> tiemposPositivosUnicosOrdenados() {
-        throw new UnsupportedOperationException("TODO");
+        return tiempos.stream()
+        		.filter(t-> t >0)
+        		.distinct()
+        		.sorted()
+        		.toList();
     }
 
     /**
@@ -74,7 +80,12 @@ public class DoubleStreamsKata {
      * (Piensa: seleccionar → distinct → ordenar desc → limit(2) → lista)
      */
     public List<Double> top2TiemposUnicosDesc() {
-        throw new UnsupportedOperationException("TODO");
+        return tiempos.stream()
+        		.filter(t-> t > 0)
+        		.distinct()
+        		.sorted(Comparator.reverseOrder())
+        		.limit(2)
+        		.toList();
     }
 
     /**
@@ -85,7 +96,10 @@ public class DoubleStreamsKata {
      * Pista de receta: filter → mapToDouble → average → orElse(0.0)
      */
     public double mediaTiemposPositivos() {
-        throw new UnsupportedOperationException("TODO");
+        return tiempos.stream()
+        		.filter(t-> t > 0)
+        		.mapToDouble(Double::valueOf)
+        		.average().orElse(0.0);
     }
 
     /**
@@ -99,7 +113,10 @@ public class DoubleStreamsKata {
      * Pista de receta: filter → mapToInt(t -> (int)Math.round(t * 1000)) → sum
      */
     public int sumaMilisegundosRedondeados() {
-        throw new UnsupportedOperationException("TODO");
+        return tiempos.stream()
+        		.filter(t-> t > 0)
+        		.mapToInt(t-> (int)Math.round(t * 1000))
+        		.sum();
     }
 
     /**
@@ -112,7 +129,11 @@ public class DoubleStreamsKata {
      * (Piensa: seleccionar → transformar (redondear) → ordenar → lista)
      */
     public List<Double> preciosRedondeadosOrdenados() {
-        throw new UnsupportedOperationException("TODO");
+        return precios.stream()
+        		.filter(p-> p > 0)
+        		.map(p-> Math.round(p * 100) / 100.0)
+        		.sorted()
+        		.toList();
     }
 
     /**
