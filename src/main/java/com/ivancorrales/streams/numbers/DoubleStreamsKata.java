@@ -144,7 +144,10 @@ public class DoubleStreamsKata {
      * Pista de receta: filter → mapToDouble → max → orElse(0.0)
      */
     public double precioMaximo() {
-        throw new UnsupportedOperationException("TODO");
+        return precios.stream()
+        		.filter(p-> p > 0)
+        		.mapToDouble(Double::valueOf)
+        		.max().orElse(0.0);
     }
 
     /**
@@ -157,7 +160,9 @@ public class DoubleStreamsKata {
      * (Piensa: List<List<Double>> → Stream<Double> usando flatMap)
      */
     public List<Double> todosLosTiemposDeTodasLasSesiones() {
-        throw new UnsupportedOperationException("TODO");
+        return tiemposPorSesion.stream()
+        		.flatMap(List::stream)
+        		.toList();
     }
 
     /**
@@ -173,6 +178,10 @@ public class DoubleStreamsKata {
      * Pista de receta: flatMap → filter → mapToDouble → average → orElse(0.0)
      */
     public double mediaTiemposPositivosDeTodasLasSesiones() {
-        throw new UnsupportedOperationException("TODO");
+        return tiemposPorSesion.stream()
+        		.flatMap(List::stream)
+        		.filter(p-> p > 0)
+        		.mapToDouble(Double::valueOf)
+        		.average().orElse(0.0);
     }
 }

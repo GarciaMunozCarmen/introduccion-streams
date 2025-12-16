@@ -1,5 +1,6 @@
 package com.ivancorrales.streams.numbers;
 
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -58,7 +59,10 @@ public class NumberStreamsKata {
      * (Piensa: seleccionar → ordenar → lista)
      */
     public List<Integer> positivosOrdenados() {
-        throw new UnsupportedOperationException("TODO");
+        return puntos.stream()
+        		.filter(p-> p > 0)
+        		.sorted()
+        		.toList();
     }
 
     /**
@@ -68,7 +72,11 @@ public class NumberStreamsKata {
      * (Piensa: seleccionar → quitar repetidos → ordenar → lista)
      */
     public List<Integer> positivosUnicosOrdenados() {
-        throw new UnsupportedOperationException("TODO");
+        return puntos.stream()
+        		.filter(p-> p > 0)
+        		.distinct()
+        		.sorted()
+        		.toList();
     }
 
     /**
@@ -82,7 +90,12 @@ public class NumberStreamsKata {
      * (Piensa: seleccionar → quitar repetidos → ordenar desc → limit(3) → lista)
      */
     public List<Integer> top3UnicosDesc() {
-        throw new UnsupportedOperationException("TODO");
+        return puntos.stream()
+        		.filter(p-> p > 0)
+        		.distinct()
+        		.sorted(Comparator.reverseOrder())
+        		.limit(3)
+        		.toList();
     }
 
     /**
@@ -92,7 +105,10 @@ public class NumberStreamsKata {
      * Pista de receta: filter → mapToInt → sum
      */
     public int sumaPositivos() {
-        throw new UnsupportedOperationException("TODO");
+        return puntos.stream()
+        		.filter(p-> p > 0)
+        		.mapToInt(Integer::valueOf)
+        		.sum();
     }
 
     /**
@@ -103,7 +119,8 @@ public class NumberStreamsKata {
      * Pista de receta: filter → findFirst → orElse(-1)
      */
     public int primerMultiploDe6Omenos1() {
-        throw new UnsupportedOperationException("TODO");
+        return puntos.stream()
+        		.filter(p-> p > 0)
     }
 
     /**

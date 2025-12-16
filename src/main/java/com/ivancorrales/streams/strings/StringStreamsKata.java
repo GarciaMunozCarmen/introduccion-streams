@@ -240,7 +240,6 @@ public class StringStreamsKata {
      */
     public List<String> hashtagsUnicosDesdeComas() {
         return hashtagsPorPost.stream()
-//        		.map(h-> h.)
         		.map(h-> h.toLowerCase().trim())
         		.distinct()
         		.sorted()
