@@ -61,7 +61,10 @@ public class ObjectStreamsKata {
      * (Piensa: seleccionar por artista → transformar a títulos → lista)
      */
     public List<String> titulosDeArtista(String artista) {
-        throw new UnsupportedOperationException("TODO");
+        return playlist.stream()
+        		.filter(s -> s.getArtist().equalsIgnoreCase(artista))
+        		.map(s -> s.getTitle())
+        		.toList();
     }
 
     /**
@@ -73,7 +76,12 @@ public class ObjectStreamsKata {
      * (Piensa: seleccionar → distinct → map(título) → sorted → lista)
      */
     public List<String> titulosRecomendadosUnicosOrdenados() {
-        throw new UnsupportedOperationException("TODO");
+        return playlist.stream()
+        		.filter(s-> s.getRating() >= 4.5)
+        		.distinct()
+        		.map(s -> s.getTitle())
+        		.sorted()
+        		.toList();
     }
 
     /**
@@ -90,6 +98,8 @@ public class ObjectStreamsKata {
      */
     public List<String> top2PorRatingLuegoDuracion() {
         throw new UnsupportedOperationException("TODO");
+
+        //        NO ENTIENDO LOS COMPARADORES
     }
 
     /**
@@ -102,7 +112,9 @@ public class ObjectStreamsKata {
      * (Piensa: mapToInt(seconds) → sum)
      */
     public int duracionTotal() {
-        throw new UnsupportedOperationException("TODO");
+        return playlist.stream()
+        		.mapToInt(s-> s.getSeconds())
+        		.sum();
     }
 
     /**
@@ -116,7 +128,9 @@ public class ObjectStreamsKata {
      * (Piensa: mapToDouble(rating) → average → orElse(0.0))
      */
     public double mediaRatingPlaylist() {
-        throw new UnsupportedOperationException("TODO");
+        return playlist.stream()
+        		.mapToDouble(Song::getRating)
+        		.average().orElse(0.0);
     }
 
     /**

@@ -120,7 +120,8 @@ public class NumberStreamsKata {
      */
     public int primerMultiploDe6Omenos1() {
         return puntos.stream()
-        		.filter(p-> p > 0)
+        		.filter(p-> p % 6 == 0)
+        		.findFirst().orElse(-1);
     }
 
     /**
@@ -130,7 +131,8 @@ public class NumberStreamsKata {
      * (Piensa: ¿existe alguno...? → anyMatch)
      */
     public boolean hayLegendario() {
-        throw new UnsupportedOperationException("TODO");
+        return puntos.stream()
+        		.anyMatch(p-> p >= 100);
     }
 
     /**
@@ -141,7 +143,11 @@ public class NumberStreamsKata {
      * Pista de receta: filter → mapToInt → average → orElse(0.0)
      */
     public double mediaPositivos() {
-        throw new UnsupportedOperationException("TODO");
+        return puntos.stream()
+        		.filter(p-> p > 0)
+        		.mapToInt(Integer::intValue)
+        		.average().orElse(0.0);
+        		
     }
 
     /**
@@ -153,7 +159,15 @@ public class NumberStreamsKata {
      * pero recuerda que un stream no se puede “reutilizar” una vez consumido.
      */
     public int rangoPositivos() {
-        throw new UnsupportedOperationException("TODO");
+         int max = puntos.stream()
+					.filter(p-> p > 0)
+					.mapToInt(Integer::intValue)
+					.max().orElse(0);
+         int min = puntos.stream()
+					.filter(p-> p > 0)
+					.mapToInt(Integer::intValue)
+					.min().orElse(0);
+         return max - min;
     }
 
     /**
@@ -166,7 +180,9 @@ public class NumberStreamsKata {
      * (Piensa: List<List<Integer>> → Stream<Integer> usando flatMap)
      */
     public List<Integer> todasLasRondasEnUnaLista() {
-        throw new UnsupportedOperationException("TODO");
+        return rondasPorPartida.stream()
+        		.flatMap(List::stream)
+        		.toList();
     }
 
     /**
@@ -181,7 +197,15 @@ public class NumberStreamsKata {
      * (Piensa: flatMap → filter → distinct → sorted desc → limit(5) → lista)
      */
     public List<Integer> top5UnicosPositivosDeTodasLasRondas() {
-        throw new UnsupportedOperationException("TODO");
+        return rondasPorPartida.stream()
+        		.flatMap(List::stream)
+        		.filter(p-> p > 0)
+        		.distinct()
+        		.sorted(Comparator.reverseOrder())
+        		.limit(5)
+        		.toList();
+        		
+        		
     }
 
     /**
@@ -191,6 +215,10 @@ public class NumberStreamsKata {
      * Pista de receta: flatMap → filter → mapToInt → sum
      */
     public int sumaPositivosDeTodasLasRondas() {
-        throw new UnsupportedOperationException("TODO");
+        return rondasPorPartida.stream()
+        		.flatMap(List::stream)
+        		.filter(p-> p > 0)
+        		.mapToInt(Integer::intValue)
+        		.sum();
     }
 }
